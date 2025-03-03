@@ -10,6 +10,14 @@
 #include <vector>
 #include <memory>
 
+i32 GetValidInt(const std::string &prompt, i32 min, i32 max);
+f64 GetValidFloat(const std::string &prompt, f64 min);
+std::string GetValidString(const std::string &prompt);
+
+std::unique_ptr<Bank::Bank> &SelectBank(std::vector<std::unique_ptr<Bank::Bank>> &banks);
+const std::unique_ptr<Bank::Customer> &SelectCustomer(std::unique_ptr<Bank::Bank> &bank);
+const std::unique_ptr<Bank::BankAccount> &SelectAccount(const std::unique_ptr<Bank::Customer> &customer);
+
 void CreateBank(std::vector<std::unique_ptr<Bank::Bank>> &banks);
 void CreateCustomer(std::vector<std::unique_ptr<Bank::Bank>> &banks);
 void ViewAllBanks(std::vector<std::unique_ptr<Bank::Bank>> &banks);

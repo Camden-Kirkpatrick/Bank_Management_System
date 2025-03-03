@@ -72,6 +72,24 @@ std::string GetValidString(const std::string &prompt)
     }
 }
 
+std::unique_ptr<Bank::Bank> &SelectBank(std::vector<std::unique_ptr<Bank::Bank>> &banks)
+{
+    i32 bank_index = GetValidInt("Enter bank index: ", 0, banks.size() - 1);
+    return banks[bank_index];
+}
+
+const std::unique_ptr<Bank::Customer> &SelectCustomer(std::unique_ptr<Bank::Bank> &bank)
+{
+    i32 customer_index = GetValidInt("Enter customer index: ", 0, bank->GetNumberOfCustomers() - 1);
+    return bank->GetCustomer(customer_index);
+}
+
+const std::unique_ptr<Bank::BankAccount> &SelectAccount(const std::unique_ptr<Bank::Customer> &customer)
+{
+    i32 account_index = GetValidInt("Enter account index: ", 0, customer->GetNumberOfAccounts() - 1);
+    return customer->GetAccount(account_index);
+}
+
 // ==============================
 // HELPER FUNCTIONS FOR USER INTERACTION
 // ==============================
@@ -198,8 +216,7 @@ void CreateCustomer(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 bank_index = GetValidInt("Enter bank index: ", 0, banks.size() - 1);
-    auto &bank = banks[bank_index];
+    auto &bank = SelectBank(banks);
 
     std::string fname = GetValidString("Enter first name: ");
     std::string lname = GetValidString("Enter last name: ");
@@ -234,8 +251,7 @@ void ViewAllCustomer(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 bank_index = GetValidInt("Enter bank index: ", 0, banks.size() - 1);
-    auto &bank = banks[bank_index];
+    auto &bank = SelectBank(banks);
 
     if (bank->GetNumberOfCustomers() == 0)
     {
@@ -280,8 +296,7 @@ void SearchForCustomer(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 bank_index = GetValidInt("Enter bank index: ", 0, banks.size() - 1);
-    auto &bank = banks[bank_index];
+    auto &bank = SelectBank(banks);
 
     if (bank->GetNumberOfCustomers() == 0)
     {
@@ -322,8 +337,7 @@ void AddAccount(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 bank_index = GetValidInt("Enter bank index: ", 0, banks.size() - 1);
-    auto &bank = banks[bank_index]; // Use unique_ptr to access the Bank
+    auto &bank = SelectBank(banks);
 
     if (bank->GetNumberOfCustomers() == 0)
     {
@@ -331,8 +345,7 @@ void AddAccount(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 customer_index = GetValidInt("Enter customer index: ", 0, bank->GetNumberOfCustomers() - 1);
-    auto &customer = bank->GetCustomer(customer_index);
+    auto &customer = SelectCustomer(bank);
 
     i32 account_type = GetValidInt("Enter account type (0: CHECKING, 1: SAVING): ", 0, 1);
     f64 balance = GetValidFloat("Enter initial balance: ", 0.0);
@@ -348,8 +361,7 @@ void AddTransaction(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 bank_index = GetValidInt("Enter bank index: ", 0, banks.size() - 1);
-    auto &bank = banks[bank_index];
+    auto &bank = SelectBank(banks);
 
     if (bank->GetNumberOfCustomers() == 0)
     {
@@ -357,8 +369,7 @@ void AddTransaction(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 customer_index = GetValidInt("Enter customer index: ", 0, bank->GetNumberOfCustomers() - 1);
-    auto &customer = bank->GetCustomer(customer_index);
+    auto &customer = SelectCustomer(bank);
 
     if (customer->GetNumberOfAccounts() == 0)
     {
@@ -366,9 +377,7 @@ void AddTransaction(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 account_index = GetValidInt("Enter account index: ", 0, customer->GetNumberOfAccounts() - 1);
-    // Bank::BankAccount *account = customer->GetAccount(account_index);
-    auto &account = customer->GetAccount(account_index);
+    auto &account = SelectAccount(customer);
 
     i32 transaction_type = GetValidInt("Enter transaction type (0: DEPOSIT, 1: WITHDRAW, 2: TRANSFER): ", 0, 2);
 
@@ -408,8 +417,7 @@ void ViewAllAccounts(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 bank_index = GetValidInt("Enter bank index: ", 0, banks.size() - 1);
-    auto &bank = banks[bank_index];
+    auto &bank = SelectBank(banks);
 
     if (bank->GetNumberOfCustomers() == 0)
     {
@@ -417,8 +425,7 @@ void ViewAllAccounts(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 customer_index = GetValidInt("Enter customer index: ", 0, bank->GetNumberOfCustomers() - 1);
-    auto &customer = bank->GetCustomer(customer_index);
+    auto &customer = SelectCustomer(bank);
 
     if (customer->GetNumberOfAccounts() == 0)
     {
@@ -438,8 +445,7 @@ void ViewAllTransactions(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 bank_index = GetValidInt("Enter bank index: ", 0, banks.size() - 1);
-    auto &bank = banks[bank_index]; // Use unique_ptr to access the Bank
+    auto &bank = SelectBank(banks);
 
     if (bank->GetNumberOfCustomers() == 0)
     {
@@ -447,8 +453,7 @@ void ViewAllTransactions(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 customer_index = GetValidInt("Enter customer index: ", 0, bank->GetNumberOfCustomers() - 1);
-    auto &customer = bank->GetCustomer(customer_index);
+    auto &customer = SelectCustomer(bank);
 
     if (customer->GetNumberOfAccounts() == 0)
     {
@@ -456,8 +461,7 @@ void ViewAllTransactions(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 account_index = GetValidInt("Enter account index: ", 0, customer->GetNumberOfAccounts() - 1);
-    auto &account = customer->GetAccount(account_index);
+    auto &account = SelectAccount(customer);
 
     if (account->GetNumberOfTransactions() == 0)
     {
@@ -477,8 +481,7 @@ void SearchForAccount(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 bank_index = GetValidInt("Enter bank index: ", 0, banks.size() - 1);
-    auto &bank = banks[bank_index];
+    auto &bank = SelectBank(banks);
 
     if (bank->GetNumberOfCustomers() == 0)
     {
@@ -486,8 +489,7 @@ void SearchForAccount(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 customer_index = GetValidInt("Enter customer index: ", 0, bank->GetNumberOfCustomers() - 1);
-    auto &customer = bank->GetCustomer(customer_index);
+    auto &customer = SelectCustomer(bank);
 
     if (customer->GetNumberOfAccounts() == 0)
     {
@@ -523,8 +525,7 @@ void SearchForTransaction(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 bank_index = GetValidInt("Enter bank index: ", 0, banks.size() - 1);
-    auto &bank = banks[bank_index];
+    auto &bank = SelectBank(banks);
 
     if (bank->GetNumberOfCustomers() == 0)
     {
@@ -532,8 +533,7 @@ void SearchForTransaction(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 customer_index = GetValidInt("Enter customer index: ", 0, bank->GetNumberOfCustomers() - 1);
-    auto &customer = bank->GetCustomer(customer_index);
+    auto &customer = SelectCustomer(bank);
 
     if (customer->GetNumberOfAccounts() == 0)
     {
@@ -541,8 +541,7 @@ void SearchForTransaction(std::vector<std::unique_ptr<Bank::Bank>> &banks)
         return;
     }
 
-    i32 account_index = GetValidInt("Enter account index: ", 0, customer->GetNumberOfAccounts() - 1);
-    auto &account = customer->GetAccount(account_index);
+    auto &account = SelectAccount(customer);
 
     if (account->GetNumberOfTransactions() == 0)
     {
