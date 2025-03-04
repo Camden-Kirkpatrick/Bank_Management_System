@@ -1,4 +1,4 @@
-// cd C:\Users\nedma\.vscode\C++\_In Progress\Bank\src && g++ main.cpp bank_account.cpp transaction.cpp customer.cpp bank.cpp utilities.cpp -o main
+// cd src && g++ main.cpp utilities.cpp bank.cpp customer.cpp bank_account.cpp transaction.cpp -o main
 
 #include "../include/utilities.hpp"
 #include <iostream>
@@ -17,24 +17,6 @@ int main()
     } while (is_running);
 
     std::cout << "Goodbye!" << std::endl;
-
-    // std::cout << "CreateBank()\n\n";
-    // CreateBank(banks);
-    // std::cout << "\n";
-    // std::cout << "CreateCustomer()\n\n";
-    // CreateCustomer(banks);
-    // std::cout << "\n";
-    // std::cout << "AddAccount() #1\n\n";
-    // AddAccount(banks);
-    // std::cout << "\n";
-    // std::cout << "AddAccount() #2\n\n";
-    // AddAccount(banks);
-    // std::cout << "\n";
-    // std::cout << "AddTransaction()\n\n";
-    // AddTransaction(banks);
-    // std::cout << "\n";
-    // std::cout << "ViewAllTransactions()\n\n";
-    // ViewAllTransactions(banks);
 
     return 0;
 }
