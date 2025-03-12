@@ -21,7 +21,7 @@ namespace Bank
 
     public:
         Customer() = default;
-        Customer(const std::string &fName, const std::string &lName, i32 age);
+        Customer(const std::string &fName, const std::string &lName, const i32 &age);
         ~Customer();
 
         void DisplayCustomerInfo() const;
@@ -31,7 +31,7 @@ namespace Bank
         inline std::string GetName() const { return m_fName + " " + m_lName; }
         inline i32 GetAge() const { return m_age; }
         inline i32 GetNumberOfAccounts() const { return m_accounts.size(); }
-        inline const std::unique_ptr<BankAccount> &GetAccount(i32 index) const { return m_accounts[index]; }
+        inline std::unique_ptr<BankAccount> &GetAccount(i32 index) { return m_accounts[index]; }
         inline const std::vector<std::unique_ptr<BankAccount>> &GetAccounts() const { return m_accounts; }
     };
 }

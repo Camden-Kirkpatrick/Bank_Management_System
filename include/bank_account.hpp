@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <chrono>
 
 namespace Bank
 {
@@ -18,18 +19,21 @@ namespace Bank
         BankAccount(AccountType account_type, Customer &customer, f64 balance);
         virtual ~BankAccount();
 
-        void Withdraw(f64 amount);
-        void Deposit(f64 amount);
-        void Transfer(i32 account_index, f64 amount);
-        virtual void ApplyOverdraftFee(f64 fee) {}
-        void CreateTransaction(TransactionType transaction_type, f64 amount, i32 transfer_account_index = -1);
+        //virtual void Withdraw(f64 amount) = 0;
+        virtual bool Withdraw(f64 amount) = 0;
+        virtual void ApplyInterest() {}
+        virtual void ApplyOverdraftFee() {}
+
+        void Deposit(const f64 amount);
+        void Transfer(const std::string &account_index, const f64 amount);
+        void CreateTransaction(TransactionType transaction_type, f64 amount, const std::string &destination_account_id = "");
         void ViewAccountTransactions() const;
         inline std::string GetID() const { return m_account_id; }
-        inline f64 GetBalance() const { return m_balance; }
+        const inline f64 GetBalance() const { return m_balance; }
         inline Customer &GetAccountOwner() const { return m_associated_customer; }
         inline AccountType GetAccountType() const { return m_account_type; }
         inline i32 GetNumberOfTransactions() const { return m_transactions.size(); }
-        inline const std::vector<std::unique_ptr<Transaction>> &GetTransactions() const { return m_transactions; }
+        const inline std::vector<std::unique_ptr<Transaction>> &GetTransactions() const { return m_transactions; }
 
     private:
         AccountType m_account_type;
@@ -45,25 +49,17 @@ namespace Bank
     class CheckingAccount : public BankAccount
     {
     public:
-        CheckingAccount() = default;
         CheckingAccount(AccountType account_type, Customer &customer, f64 balance);
-        ~CheckingAccount() override = default;
-
-        // void ApplyOverdraftFee(f64 fee);
-        void ApplyOverdraftFee(f64 fee) override
-        {
-            m_balance -= fee;
-            std::cout << "Overdraft fee of $" << fee << " applied to Checking Account (ID: " << m_account_id << ")\n";
-        }
+        bool Withdraw(f64 amount) override;
+        void ApplyOverdraftFee() override;
     };
 
     class SavingAccount : public BankAccount
     {
     public:
-        SavingAccount() = default;
         SavingAccount(AccountType account_type, Customer &customer, f64 balance);
-        ~SavingAccount() override = default;
-
-        void ApplyInterest(f64 rate);
+        bool Withdraw(f64 amount) override;
+        void ApplyInterest() override;
     };
+
 }

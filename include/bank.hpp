@@ -28,7 +28,9 @@ namespace Bank
         inline std::string GetName() const { return m_bank_name; }
         inline i32 GetID() const { return m_bank_id; }
         inline i32 GetNumberOfCustomers() const { return m_customers.size(); }
-        inline const std::unique_ptr<Customer> &GetCustomer(i32 index) const { return m_customers[index]; }
+        inline std::unique_ptr<Customer> &GetCustomer(i32 index) { return m_customers[index]; }
         inline const std::vector<std::unique_ptr<Customer>> &GetCustomers() const { return m_customers; }
+
+        void ApplyInterestToAllAccounts();
     };
 }
