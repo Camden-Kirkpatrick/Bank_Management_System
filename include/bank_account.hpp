@@ -19,7 +19,6 @@ namespace Bank
         BankAccount(AccountType account_type, Customer &customer, f64 balance);
         virtual ~BankAccount();
 
-        //virtual void Withdraw(f64 amount) = 0;
         virtual bool Withdraw(f64 amount) = 0;
         virtual void ApplyInterest() {}
         virtual void ApplyOverdraftFee() {}
