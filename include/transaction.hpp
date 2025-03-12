@@ -30,12 +30,12 @@ namespace Bank
         Transaction(BankAccount &account, f64 amount, TransactionType transaction_type, const std::string &destination_account_id);
         ~Transaction();
 
-        const inline i32 GetTransactionID() const { return m_transaction_id; }
+        inline i32 GetTransactionID() const { return m_transaction_id; }
         void DisplayTransaction() const;
-        const inline f64 GetTransactionAmount() const { return m_transaction_amount; }
-        const inline f64 GetBalanceBeforeTransaction() const { return m_balance_before_transaction; }
-        const inline f64 GetBalanceAfterTransaction() const { return m_balance_after_transaction; }
-        const std::string GetTransactionType() const;
-        const inline bool WasInvalid() const { return m_was_invalid; }
+        inline f64 GetTransactionAmount() const { return m_transaction_amount; }
+        inline f64 GetBalanceBeforeTransaction() const { return m_balance_before_transaction; }
+        inline f64 GetBalanceAfterTransaction() const { return m_balance_after_transaction; }
+        std::string GetTransactionType() const;
+        inline bool WasInvalid() const { return m_was_invalid; }
     };
 }

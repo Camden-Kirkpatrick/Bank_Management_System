@@ -30,7 +30,7 @@ namespace Bank
      * @param lName Customer's last name.
      * @param age Customer's age.
      */
-    Customer::Customer(const std::string &fName, const std::string &lName, const i32 &age)
+    Customer::Customer(const std::string &fName, const std::string &lName, i32 age)
         : m_fName(fName), m_lName(lName), m_age(age)
     {
         // Immediately generate a unique ID for this customer

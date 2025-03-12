@@ -23,13 +23,13 @@ namespace Bank
         virtual void ApplyInterest() {}
         virtual void ApplyOverdraftFee() {}
 
-        void Deposit(const f64 amount);
-        void Transfer(const std::string &account_index, const f64 amount);
+        void Deposit(f64 amount);
+        void Transfer(const std::string &account_index, f64 amount);
         void CreateTransaction(TransactionType transaction_type, f64 amount, const std::string &destination_account_id = "");
         void ViewAccountTransactions() const;
         inline std::string GetID() const { return m_account_id; }
-        const inline f64 GetBalance() const { return m_balance; }
-        inline Customer &GetAccountOwner() const { return m_associated_customer; }
+        inline f64 GetBalance() const { return m_balance; }
+        const inline Customer &GetAccountOwner() const { return m_associated_customer; }
         inline AccountType GetAccountType() const { return m_account_type; }
         inline i32 GetNumberOfTransactions() const { return m_transactions.size(); }
         const inline std::vector<std::unique_ptr<Transaction>> &GetTransactions() const { return m_transactions; }

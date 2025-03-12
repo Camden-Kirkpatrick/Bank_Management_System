@@ -57,7 +57,7 @@ Bank::Bank *FindBank(const std::vector<std::unique_ptr<Bank::Bank>> &banks, i32 
  * @param customer_id The ID of the Customer to find.
  * @return A pointer to the Customer if found, otherwise nullptr.
  */
-Bank::Customer *FindCustomer(const Bank::Bank *bank, i32 customer_id)
+Bank::Customer *FindCustomer(const Bank::Bank *const bank, i32 customer_id)
 {
     // Similar approach: find_if on the bank's customers
     auto it = std::find_if(bank->GetCustomers().begin(), bank->GetCustomers().end(),
@@ -72,7 +72,7 @@ Bank::Customer *FindCustomer(const Bank::Bank *bank, i32 customer_id)
  * @param account_id The ID of the BankAccount to find.
  * @return A pointer to the BankAccount if found, otherwise nullptr.
  */
-Bank::BankAccount *FindAccount(const Bank::Customer *customer, const std::string &account_id)
+Bank::BankAccount *FindAccount(const Bank::Customer *const customer, const std::string &account_id)
 {
     // If the account ID matches, return that BankAccount
     auto it = std::find_if(customer->GetAccounts().begin(), customer->GetAccounts().end(),
@@ -174,7 +174,7 @@ void ClearScreen()
  * @param is_running A boolean reference indicating if the program should continue running.
  * @param banks A vector of unique_ptr to Bank objects.
  */
-void DisplayMenu(i32 &choice, bool &is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks)
+void DisplayMenu(i32 choice, bool is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks)
 {
     // Then your actual menu title and items
     std::cout << "========= BANK MANAGEMENT MENU =========\n";
@@ -206,7 +206,7 @@ void DisplayMenu(i32 &choice, bool &is_running, std::vector<std::unique_ptr<Bank
  * @param is_running A boolean reference indicating if the program should continue running.
  * @param banks A vector of unique_ptr to Bank objects.
  */
-void HandleUserChoice(i32 &choice, bool &is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks)
+void HandleUserChoice(i32 choice, bool is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks)
 {
     // Switch statement to handle each menu option
     switch (choice)

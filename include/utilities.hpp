@@ -87,8 +87,8 @@ public:
 };
 
 Bank::Bank *FindBank(const std::vector<std::unique_ptr<Bank::Bank>> &banks, i32 bank_id);
-Bank::Customer *FindCustomer(const Bank::Bank *bank, i32 customer_id);
-Bank::BankAccount *FindAccount(const Bank::Customer *customer, const std::string &account_id);
+Bank::Customer *FindCustomer(const Bank::Bank *const bank, i32 customer_id);
+Bank::BankAccount *FindAccount(const Bank::Customer *const customer, const std::string &account_id);
 
 Bank::Bank *SelectBank(const std::vector<std::unique_ptr<Bank::Bank>> &banks);
 Bank::Customer *SelectCustomer(const Bank::Bank *bank);
@@ -97,8 +97,8 @@ Bank::BankAccount *SelectAccount(const Bank::Customer *customer);
 void WaitForUser();
 void ClearScreen();
 
-void DisplayMenu(i32 &choice, bool &is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks);
-void HandleUserChoice(i32 &choice, bool &is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks);
+void DisplayMenu(i32 choice, bool is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks);
+void HandleUserChoice(i32 choice, bool is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks);
 
 void CreateBank(std::vector<std::unique_ptr<Bank::Bank>> &banks);
 void CreateCustomer(std::vector<std::unique_ptr<Bank::Bank>> &banks);

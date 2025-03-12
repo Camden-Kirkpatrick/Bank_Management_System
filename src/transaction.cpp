@@ -103,7 +103,7 @@ namespace Bank
      * @brief Returns a string representation of the TransactionType.
      * @return "Deposit", "Withdraw", or "Transfer".
      */
-    const std::string Transaction::GetTransactionType() const
+    std::string Transaction::GetTransactionType() const
     {
         // Convert the enum to a user-readable string
         std::string transaction_type;

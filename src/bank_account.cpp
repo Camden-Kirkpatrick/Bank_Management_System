@@ -84,7 +84,7 @@ namespace Bank
      * @brief Deposits the specified amount into this account.
      * @param amount The amount to deposit.
      */
-    void BankAccount::Deposit(const f64 amount)
+    void BankAccount::Deposit(f64 amount)
     {
         // Simply add to the current balance
         m_balance += amount;
@@ -103,7 +103,7 @@ namespace Bank
         m_balance -= amount;
 
         // Locate the destination account via the same Customer
-        BankAccount *destAccount = FindAccount(&this->GetAccountOwner(), destination_account_id);
+        BankAccount *const destAccount = FindAccount(&this->GetAccountOwner(), destination_account_id);
         if (!destAccount)
         {
             std::cerr << "Error: Destination account not found. Transfer aborted.\n";
