@@ -174,7 +174,7 @@ void ClearScreen()
  * @param is_running A boolean reference indicating if the program should continue running.
  * @param banks A vector of unique_ptr to Bank objects.
  */
-void DisplayMenu(i32 choice, bool is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks)
+void DisplayMenu(i32 &choice, bool &is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks)
 {
     // Then your actual menu title and items
     std::cout << "========= BANK MANAGEMENT MENU =========\n";
@@ -206,7 +206,7 @@ void DisplayMenu(i32 choice, bool is_running, std::vector<std::unique_ptr<Bank::
  * @param is_running A boolean reference indicating if the program should continue running.
  * @param banks A vector of unique_ptr to Bank objects.
  */
-void HandleUserChoice(i32 choice, bool is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks)
+void HandleUserChoice(i32 &choice, bool &is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks)
 {
     // Switch statement to handle each menu option
     switch (choice)
