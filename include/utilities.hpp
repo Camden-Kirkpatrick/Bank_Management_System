@@ -97,8 +97,8 @@ Bank::BankAccount *SelectAccount(const Bank::Customer *customer);
 void WaitForUser();
 void ClearScreen();
 
-void DisplayMenu(i32 choice, bool is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks);
-void HandleUserChoice(i32 choice, bool is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks);
+void DisplayMenu(i32 &choice, bool &is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks);
+void HandleUserChoice(i32 &choice, bool &is_running, std::vector<std::unique_ptr<Bank::Bank>> &banks);
 
 void CreateBank(std::vector<std::unique_ptr<Bank::Bank>> &banks);
 void CreateCustomer(std::vector<std::unique_ptr<Bank::Bank>> &banks);
